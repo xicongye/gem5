@@ -165,6 +165,8 @@ system.system_port = system.membus.cpu_side_ports
 # HiFive Platform
 system.platform = HiFive()
 
+system.platform.pci_host.pio = system.membus.mem_side_ports
+
 # RTCCLK (Set to 100MHz for faster simulation)
 system.platform.rtc = RiscvRTC(frequency=Frequency("100MHz"))
 system.platform.clint.int_pin = system.platform.rtc.int_pin
