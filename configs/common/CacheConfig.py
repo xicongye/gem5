@@ -97,6 +97,24 @@ def config_cache(options, system):
 
         dcache_class, icache_class, l2_cache_class, walk_cache_class = \
             core.HPI_DCache, core.HPI_ICache, core.HPI_L2, None
+    elif options.cpu_type == "AutoMan":
+        try:
+            import common.cores.riscv.AutoMan as core
+        except:
+            print("AutoMan is unavailable.")
+            sys.exit(1)
+
+        dcache_class, icache_class, l2_cache_class, walk_cache_class = \
+            core.AutoMan_DCache, core.AutoMan_ICache, core.AutoMan_L2, None
+    elif options.cpu_type == "GoGo":
+        try:
+            import common.cores.riscv.GoGo as core
+        except:
+            print("GoGo is unavailable.")
+            sys.exit(1)
+
+        dcache_class, icache_class, l2_cache_class, walk_cache_class = \
+            core.GoGo_DCache, core.GoGo_ICache, core.GoGo_L2, None
     else:
         dcache_class, icache_class, l2_cache_class, walk_cache_class = \
             L1_DCache, L1_ICache, L2Cache, None
