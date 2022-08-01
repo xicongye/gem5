@@ -42,6 +42,7 @@
 #include "mem/packet.hh"
 #include "mem/packet_access.hh"
 #include "sim/serialize.hh"
+#include "sim/sim_exit.hh"
 
 namespace gem5
 {
@@ -154,6 +155,9 @@ Uart8250::writeThr(Register8 &reg, const uint8_t &data)
     status &= ~TX_INT;
     if (registers.ier.get().thri)
         scheduleIntr(&txIntrEvent);
+
+    if ((data & 0xFF) == 0x04)
+        exitSimLoop("UART received EOT", 0);
 }
 
 Uart8250::Iir
